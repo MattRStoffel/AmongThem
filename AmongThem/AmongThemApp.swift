@@ -11,7 +11,8 @@ import SwiftUI
 struct AmongThemApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            var viewModel = ViewModel()
+            ContentView(viewModel: viewModel)
         }
     }
 }
