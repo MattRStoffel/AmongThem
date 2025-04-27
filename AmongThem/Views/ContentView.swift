@@ -9,6 +9,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var viewModel = ViewModel()
     @State private var newThreadTitle: String = ""
+    @Binding var showMenu: Bool
     
     var body: some View {
         NavigationStack {
@@ -30,6 +31,14 @@ struct ContentView: View {
                         Image(systemName: "plus")
                     }
                 }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        showMenu.toggle()
+                    }) {
+                        Image(systemName: "arrow.left.circle")
+                    }
+                    
+                }
             }
             .navigationDestination(for: Thread.self) { thread in
                 ThreadDetailView(viewModel: viewModel, thread: thread)
@@ -43,26 +52,32 @@ struct ThreadDetailView: View {
     var thread: Thread
 
     var body: some View {
-        VStack {
-            ScrollView {
-                ForEach(viewModel.messages) { message in
-                    MessageView(message: message, user: viewModel.user)
+        ZStack {
+            Image("Space")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                ScrollView {
+                    ForEach(viewModel.messages) { message in
+                        MessageView(message: message, user: viewModel.user)
+                    }
+                }
+                UserInput { text in
+                    viewModel.addMessage(text, to: thread)
+                    viewModel.getEnemyResponse(to: thread)
                 }
             }
-            UserInput { text in
-                viewModel.addMessage(text, to: thread)
-                viewModel.getEnemyResponse(to: thread)
+            .onAppear {
+                viewModel.loadMessages(for: thread)
             }
+            .padding()
         }
-        .onAppear {
-            viewModel.loadMessages(for: thread)
-        }
-        .padding()
+
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-    }
+            ContentView(viewModel: ViewModel(), showMenu: .constant(true))
+        }
 }
