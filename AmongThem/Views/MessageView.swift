@@ -21,7 +21,8 @@ struct MessageView: View {
                         .bold()
                         .padding()
                         .foregroundStyle(.white)
-                        .background(message.sender?.id == user.id ? .blue : .green)
+                        .background(RoundedRectangle(cornerRadius: 16) .fill(message.sender?.id == user.id ? Color.blue : Color.gray))
+                        
                 }
                 if message.sender?.id != user.id {
                     Spacer()
