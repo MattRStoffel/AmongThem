@@ -8,6 +8,15 @@ import SwiftUI
 
 struct HelpView: View {
     var body: some View {
-        Text("Play the game lmao")
-    }
+        ZStack {
+            Image("Space")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+            Text("Click on the + button in order to make a new character, once made talk to the new person in the chat. Make a remark and they will explain their setting")
+                .padding(20)
+                .background(.gray)
+                .foregroundColor(.white)
+        }
+        }
+        
 }

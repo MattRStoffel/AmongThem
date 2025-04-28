@@ -19,14 +19,24 @@ struct ContentView: View {
                         NavigationLink(value: thread) {
                             Text(thread.title ?? "Untitled Thread")
                         }
-                    }
+                    }.onDelete(perform: deleteThread)
                 }
             }
             .listStyle(.sidebar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        viewModel.createThread(with: "bot")
+                        let randomNumber = Int.random(in: 1...3)
+                        var name = "person"
+                        switch randomNumber {
+                        case 1:
+                            name = "bot"
+                        case 2:
+                            name = "alien"
+                        default :
+                            break
+                        }
+                        viewModel.createThread(with: name)
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -43,6 +53,13 @@ struct ContentView: View {
             .navigationDestination(for: Thread.self) { thread in
                 ThreadDetailView(viewModel: viewModel, thread: thread)
             }
+        }
+    }
+    
+    func deleteThread(at offsets: IndexSet) {
+        for index in offsets {
+            let thread = viewModel.threads[index]
+            viewModel.deleteThread(thread)
         }
     }
 }
@@ -76,8 +93,10 @@ struct ThreadDetailView: View {
     }
 }
 
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
             ContentView(viewModel: ViewModel(), showMenu: .constant(true))
         }
 }
+
