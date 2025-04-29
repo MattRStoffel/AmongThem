@@ -35,6 +35,11 @@ struct ThreadHandler {
         saveContext()
     }
     
+    func deleteThread(_ thread: Thread) {
+        context.delete(thread)
+        saveContext()
+    }
+    
     private func saveContext() {
         do {
             try context.save()

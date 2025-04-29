@@ -6,6 +6,7 @@
 //
 import Foundation
 
+
 struct APIResponse: Decodable {
     let model: String
     let created_at: String?
@@ -14,9 +15,20 @@ struct APIResponse: Decodable {
 }
 
 struct EnemyHandler {
-    private let prompt = "You are a human chatting online. Your main goal is to convince your conversation partner that you are human. Keep your responses as short as possible while still being engaging, authentic, and friendly. Respond naturally and with genuine human quirks, avoiding any hints that you are an AI. The conversation will proceed with the user’s inputs—ensure your replies feel spontaneous and real. It is extremly important to keep responses SHORT, no longer than 10 words unless absolutly neccicary"
+   
     
-    func createRequest(question: String) -> URLRequest {
+    func createRequest(question: String, enemy: String) -> URLRequest {
+        var prompt = "You are a person talking to a vampire, the user will try to convince you to let them into your home. They are going to try to convince you in 12 or less respones. If you fail, you will be turned into a vampire. It should be possible to convince you just difficult. Explain your setting to begin"
+        
+        switch enemy {
+        case "bot":
+            prompt = "you are now a robot and you are convinced that the user is a person. They are trying to convince you that they are a robot as well. They are going to try to convince you in 12 or less respones. If you fail, you will be deactivated. It should be possible to convince you just difficult. Explain your setting to begin"
+        case "alien":
+            prompt = "you are now a alien talking in strange language"
+        default:
+            break
+        }
+        
         let url = URL(string: "http://localhost:11434/api/generate")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -48,8 +60,8 @@ struct EnemyHandler {
         return result
     }
 
-    func fetchStreamingResponse(question: String) async -> String {
-        let request = createRequest(question: question)
+    func fetchStreamingResponse(question: String, enemyName: String) async -> String {
+        let request = createRequest(question: question, enemy: enemyName)
         
         do {
             let (byteStream, _) = try await URLSession.shared.bytes(for: request)

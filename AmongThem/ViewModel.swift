@@ -43,6 +43,11 @@ class ViewModel: ObservableObject {
         loadThreads()
     }
     
+    func deleteThread(_ thread: Thread) {
+        threadHandler.deleteThread(thread)
+        loadThreads()
+    }
+    
     func addMessage(_ text: String, to thread: Thread) {
         messageHandler.addMessage(text: text, to: thread, sender: user)
         loadMessages(for: thread)
@@ -55,7 +60,7 @@ class ViewModel: ObservableObject {
         }
         var enemyRespoonse: String = ""
         Task {
-            await enemyRespoonse = enemyHandler.fetchStreamingResponse(question: prompt)
+            await enemyRespoonse = enemyHandler.fetchStreamingResponse(question: prompt, enemyName: (thread.otherUser?.name)!)
             messageHandler.addMessage(text: enemyRespoonse, to: thread, sender: thread.otherUser!)
             loadMessages(for: thread)
         }
