@@ -25,18 +25,51 @@ struct ContentView: View {
             .listStyle(.sidebar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        let randomNumber = Int.random(in: 1...3)
-                        var name = "person"
-                        switch randomNumber {
-                        case 1:
-                            name = "bot"
-                        case 2:
-                            name = "alien"
-                        default :
-                            break
+                    Menu {
+                        Button {
+                            viewModel.createThread(with: "person")
+                        } label: {
+                            Text("person")
                         }
-                        viewModel.createThread(with: name)
+                        Button{
+                            viewModel.createThread(with: "Dietian")
+                        } label: {
+                            Text("Dietian")
+                        }
+                        Button{
+                            viewModel.createThread(with: "Fitness Coach")
+                        } label: {
+                            Text("Fitness Coach")
+                        }
+                        Button{
+                            viewModel.createThread(with: "Doctor")
+                        } label: {
+                            Text("Doctor")
+                        }
+                        Button{
+                            viewModel.createThread(with: "Therapist")
+                        } label:{
+                            Text("Therapist")
+                        }
+                        Button {
+                            let randomNumber = Int.random(in: 1...5)
+                            var name = "Unknown"
+                            switch randomNumber {
+                            case 1:
+                                name = "Dietian"
+                            case 2:
+                                name = "Fitness Coach"
+                            case 3:
+                                name = "Doctor"
+                            case 4:
+                                name = "Therapist"
+                            default :
+                                break
+                            }
+                            viewModel.createThread(with: name)
+                        } label: {
+                            Text("Random Help")
+                        }
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -54,6 +87,8 @@ struct ContentView: View {
                 ThreadDetailView(viewModel: viewModel, thread: thread)
             }
         }
+
+        
     }
     
     func deleteThread(at offsets: IndexSet) {
