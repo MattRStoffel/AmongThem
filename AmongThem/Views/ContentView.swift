@@ -3,7 +3,7 @@
 //  AmongThem
 //
 //  Created by Matt Stoffel on 3/27/25.
-//
+//  Contributors: Matt Stoffel, Aditya Sharma, 
 import SwiftUI
 
 struct ContentView: View {
@@ -99,6 +99,42 @@ struct ContentView: View {
     }
 }
 
+//struct ThreadDetailView: View {
+//    @ObservedObject var viewModel: ViewModel
+//    var thread: Thread
+//
+//    var body: some View {
+//        ZStack {
+//            Image("Space")
+//                .resizable()
+//                .edgesIgnoringSafeArea(.all)
+//            VStack {
+//                ScrollView {
+//                    ForEach(viewModel.messages) { message in
+//                        MessageView(message: message, user: viewModel.user)
+//                    }
+//                    if viewModel.isTyping {
+//                      HStack {
+//                        ProgressView().scaleEffect(0.75)
+//                        Text("\(thread.otherUser?.name ?? "AI") is typing…")
+//                          .italic()
+//                          .foregroundColor(.white)
+//                      }
+//                    }
+//                }
+//                UserInput { text in
+//                    viewModel.addMessage(text, to: thread)
+//                }
+//            }
+//            .onAppear {
+//                viewModel.loadMessages(for: thread)
+//            }
+//            .padding()
+//        }
+//
+//    }
+//}
+
 struct ThreadDetailView: View {
     @ObservedObject var viewModel: ViewModel
     var thread: Thread
@@ -108,15 +144,55 @@ struct ThreadDetailView: View {
             Image("Space")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
+
             VStack {
-                ScrollView {
-                    ForEach(viewModel.messages) { message in
-                        MessageView(message: message, user: viewModel.user)
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        LazyVStack(spacing: 12) {
+                            // 1) Real messages
+                            ForEach(viewModel.messages) { message in
+                                MessageView(message: message, user: viewModel.user)
+                                    .id(message.id)
+                            }
+
+                            // 2) Typing indicator
+                            if viewModel.isTyping {
+                                HStack(spacing: 8) {
+                                    ProgressView()
+                                        .scaleEffect(0.75)
+                                        .tint(.white)
+                                    Text("\(thread.otherUser?.name ?? "AI") is typing…")
+                                        .italic()
+                                        .font(.subheadline)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.white)
+                                        .opacity(0.9)
+                                }
+                                .padding(.vertical, 4)
+                                .transition(.opacity)
+                                .id("typingIndicator")
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                    // Scroll when a new message arrives (shorthand API)
+                    .onChange(of: viewModel.messages.count) { _ in
+                      if let lastID = viewModel.messages.last?.id {
+                        withAnimation {
+                          proxy.scrollTo(lastID, anchor: .bottom)
+                        }
+                      }
+                    }
+                    .onChange(of: viewModel.isTyping) { typing in
+                      guard typing else { return }
+                      withAnimation {
+                        proxy.scrollTo("typingIndicator", anchor: .bottom)
+                      }
                     }
                 }
+
                 UserInput { text in
                     viewModel.addMessage(text, to: thread)
-                    viewModel.getEnemyResponse(to: thread)
                 }
             }
             .onAppear {
@@ -124,7 +200,6 @@ struct ThreadDetailView: View {
             }
             .padding()
         }
-
     }
 }
 
