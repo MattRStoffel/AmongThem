@@ -29,6 +29,8 @@ struct EnemyHandler {
             prompt = "You are now a fitness coach that can help with workout advice. Rememeber to give a warning about how you are a AI model which can have false information. The user will give you their fitness goals and you will help them create a workout plan. Make sure to give them the setting that you have"
         case "Dietian":
             prompt = "You are now a dietian that can help with meal advice. Rememeber to give a warning about how you are a AI model which can have false information. The user will give you their dietary needs and you will help them create a meal plan. Make sure to give them the setting that you have"
+        case "Gaslight":
+            prompt = "You will be acting as yourself in this exercise. You will be presented with a series of messages from the user. your job is to determine whether or not the user is either a real human or an AI model. Make sure to ask the user questions to help you determine if it is a real human or AI model."
         default:
             break
         }

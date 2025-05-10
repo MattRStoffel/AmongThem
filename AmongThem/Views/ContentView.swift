@@ -51,6 +51,11 @@ struct ContentView: View {
                         } label:{
                             Text("Therapist")
                         }
+                        Button{
+                            viewModel.createThread(with: "Gaslight")
+                        } label:{
+                            Text("Gaslight")
+                        }
                         Button {
                             let randomNumber = Int.random(in: 1...5)
                             var name = "Unknown"
