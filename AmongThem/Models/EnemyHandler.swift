@@ -76,4 +76,38 @@ struct EnemyHandler {
             return ""
         }
     }
+    
+    /// Yields each token (APIResponse.response) as it arrives.
+    func fetchStreamingTokens(
+        question: String,
+        enemyName: String
+    ) -> AsyncStream<String> {
+        // grab the URLRequest just like fetchStreamingResponse()
+        let request = createRequest(question: question, enemy: enemyName)
+
+        return AsyncStream { continuation in
+            // spin off an async task to drive the stream
+            Task {
+                do {
+                    // open the byte stream
+                    let (byteStream, _) = try await URLSession.shared.bytes(for: request)
+                    // for each line of JSON…
+                    for try await line in byteStream.lines {
+                        guard let data = line.data(using: .utf8) else { continue }
+                        // decode just that chunk
+                        let apiResponse = try JSONDecoder()
+                            .decode(APIResponse.self, from: data)
+                        // yield the `.response` field immediately
+                        continuation.yield(apiResponse.response)
+                    }
+                    // when the stream ends
+                    continuation.finish()
+                } catch {
+                    // on error, just finish
+                    continuation.finish()
+                }
+            }
+        }
+    }
+
 }

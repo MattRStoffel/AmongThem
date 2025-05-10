@@ -3,12 +3,12 @@
 //  AmongThem
 //
 //  Created by Matt Stoffel on 3/27/25.
-//
+//  Contributors: Matt Stoffel, Aditya Sharma, 
 import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel = ViewModel()
-    @State private var newThreadTitle: String = ""
+//    @State private var newThreadTitle: String = ""
     @Binding var showMenu: Bool
     
     var body: some View {
@@ -99,34 +99,122 @@ struct ContentView: View {
     }
 }
 
-struct ThreadDetailView: View {
-    @ObservedObject var viewModel: ViewModel
-    var thread: Thread
+//struct ThreadDetailView: View {
+//    @ObservedObject var viewModel: ViewModel
+//    var thread: Thread
+//
+//    var body: some View {
+//        ZStack {
+//            Image("Space")
+//                .resizable()
+//                .edgesIgnoringSafeArea(.all)
+//            VStack {
+//                ScrollView {
+//                    ForEach(viewModel.messages) { message in
+//                        MessageView(message: message, user: viewModel.user)
+//                    }
+//                    if viewModel.isTyping {
+//                      HStack {
+//                        ProgressView().scaleEffect(0.75)
+//                        Text("\(thread.otherUser?.name ?? "AI") is typing…")
+//                          .italic()
+//                          .foregroundColor(.white)
+//                      }
+//                    }
+//                }
+//                UserInput { text in
+//                    viewModel.addMessage(text, to: thread)
+//                }
+//            }
+//            .onAppear {
+//                viewModel.loadMessages(for: thread)
+//            }
+//            .padding()
+//        }
+//
+//    }
+//}
 
-    var body: some View {
-        ZStack {
-            Image("Space")
-                .resizable()
-                .edgesIgnoringSafeArea(.all)
-            VStack {
-                ScrollView {
-                    ForEach(viewModel.messages) { message in
-                        MessageView(message: message, user: viewModel.user)
-                    }
-                }
-                UserInput { text in
-                    viewModel.addMessage(text, to: thread)
-                    viewModel.getEnemyResponse(to: thread)
-                }
-            }
-            .onAppear {
-                viewModel.loadMessages(for: thread)
-            }
-            .padding()
-        }
-
-    }
-}
+//struct ThreadDetailView: View {
+//    @ObservedObject var viewModel: ViewModel
+//    var thread: Thread
+//
+//    var body: some View {
+//        ZStack {
+//            Image("Space")
+//                .resizable()
+//                .edgesIgnoringSafeArea(.all)
+//
+//            VStack {
+//                messagesSection
+//
+//                    UserInput { text in
+//                        viewModel.addMessage(text, to: thread)
+//                    }
+//                }
+//                .onAppear { viewModel.loadMessages(for: thread) }
+//                .padding()
+//            }
+//        }
+//
+//        // MARK: – Messages + Indicators
+//        private var messagesSection: some View {
+//            ScrollViewReader { proxy in
+//                ScrollView {
+//                    LazyVStack(spacing: 12) {
+//                        // 1) Real messages
+//                        ForEach(viewModel.messages) { msg in
+//                            MessageView(message: msg, user: viewModel.user)
+//                                .id(msg.id)
+//                        }
+//
+//                        // 2) Static “is typing…” indicator
+//                        if viewModel.isTyping {
+//                            HStack(spacing: 8) {
+//                                ProgressView()
+//                                    .scaleEffect(0.75)
+//                                    .tint(.white)
+//                                Text("\(thread.otherUser?.name ?? "AI") is typing…")
+//                                    .italic()
+//                                    .font(.subheadline)
+//                                    .fontWeight(.medium)
+//                                    .foregroundColor(.white)
+//                                    .opacity(0.9)
+//                            }
+//                            .padding(.vertical, 4)
+//                            .transition(.opacity)
+//                            .id("typingIndicator")
+//                        }
+//
+//                        // 3) Streaming draft bubble
+//                        if viewModel.isStreaming {
+//                            MessageView(
+//                                text: viewModel.draftText,
+//                                isFromUser: false,
+//                                isDraft: true
+//                            )
+//                            .id("draftIndicator")
+//                        }
+//                    }
+//                    .padding(.horizontal)
+//                }
+//                .onChange(of: viewModel.messages.count) { _ in
+//                    guard let last = viewModel.messages.last?.id else { return }
+//                    withAnimation { proxy.scrollTo(last, anchor: .bottom) }
+//                }
+//                .onChange(of: viewModel.isTyping) { typing in
+//                    if typing {
+//                        withAnimation { proxy.scrollTo("typingIndicator", anchor: .bottom) }
+//                    }
+//                }
+//                .onChange(of: viewModel.isStreaming) { streaming in
+//                    if streaming {
+//                        withAnimation { proxy.scrollTo("draftIndicator", anchor: .bottom) }
+//                    }
+//                }
+//            }
+//    }
+//}
 
 
 struct ContentView_Previews: PreviewProvider {

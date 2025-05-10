@@ -3,6 +3,7 @@
 //  AmongThem
 //
 //  Created by Matt Stoffel on 3/29/25.
+//  Contributors: Matt Stoffel, Aditya Sharma, 
 //
 
 import Foundation
@@ -35,6 +36,7 @@ struct MessageHandler {
         message.timestamp = Date()
         message.sender = sender
         message.thread = thread
+        
         saveContext()
     }
     
