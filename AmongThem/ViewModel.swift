@@ -15,6 +15,8 @@ class ViewModel: ObservableObject {
     @Published var messages: [Message] = []
     // MARK: – Typing state
     @Published var isTyping: Bool = false
+    @Published var isStreaming = false
+    @Published var draftText: String    = ""
     
     private let userHandler: UserHandler
     private let threadHandler: ThreadHandler
@@ -85,19 +87,37 @@ class ViewModel: ObservableObject {
         // 2) Flip on spinner
         isTyping = true
         defer { isTyping = false }   // guarantee it always turns off
+        
+        // start streaming
+        isStreaming = true
+        draftText = ""
+        
 
         // 3) Do the network call off the main thread…
-        let response = await enemyHandler.fetchStreamingResponse(
+//        let response = await enemyHandler.fetchStreamingResponse(
+//            question: prompt,
+//            enemyName: enemyName
+//        )
+
+        // 4) consume token stream
+
+        for await token in enemyHandler.fetchStreamingTokens(
             question: prompt,
             enemyName: enemyName
-        )
-
-        // 4) Back on MainActor (auto), save + reload
+        ) {
+            draftText += token
+        }
+        
+        // 5) Back on MainActor (auto), save + reload
         messageHandler.addMessage(
-            text: response,
+            text: draftText,
             to: thread,
             sender: thread.otherUser!
-        )
-        loadMessages(for: thread)
+          )
+          loadMessages(for: thread)
+
+          // 4) clear draft
+          isStreaming = false
+          draftText   = ""
     }
 }
