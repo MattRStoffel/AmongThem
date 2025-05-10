@@ -9,7 +9,7 @@ _A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
 1. [@MattRStoffel](https://github.com/MattRStoffel) - Matt Stoffel
 2. [@MaKoabra](https://github.com/MaKoabra)         - Steven 
 3. [@adixsharma](https://github.com/adixsharma)     - Aditya Sharma
-4. [git username] (link)                            - Nate
+4. [@natdav231] (https://github.com/natdav231)                            - Nathan Gabriel David
 
 ---
 
