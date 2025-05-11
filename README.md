@@ -9,7 +9,7 @@ _A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
 1. [@MattRStoffel](https://github.com/MattRStoffel) - Matt Stoffel
 2. [@MaKoabra](https://github.com/MaKoabra)         - Steven 
 3. [@adixsharma](https://github.com/adixsharma)     - Aditya Sharma
-4. [@natdav231] (https://github.com/natdav231)      - Nathan Gabriel David
+4. [@natdav231](https://github.com/natdav231)       - Nathan Gabriel David
 
 ---
 
@@ -20,7 +20,7 @@ _A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
 - **AI Chat via Ollama 3.2**  
   Streaming responses from local Ollama 3.2 models for ultra‑fast, privacy‑preserving chat.  
 - **Typing Indicator**  
-  “…is typing” bubble shows before each AI reply.  
+  “…is typing” bubble shows before each AI reply to keep the user informed mitigate exiting for the response delay.  
 - **Auto‑Scroll**  
   Chat view stays pinned to the latest message or typing bubble.  
 - **CoreData Persistence**  
