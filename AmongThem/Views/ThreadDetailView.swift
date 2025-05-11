@@ -94,21 +94,24 @@ extension ThreadDetailView {
 
                 // 3) Streaming draft bubble
                 if viewModel.isStreaming {
-                  HStack(alignment: .bottom) {
-                    // incoming side bubble
-                    VStack(alignment: .leading) {
-                      Text(viewModel.draftText)
-                        .padding(10)
-                        .background(Color(.secondarySystemBackground))
-                        .cornerRadius(16)
+                    HStack {
+                        ZStack {
+                            Text(viewModel.draftText)
+                              .bold()
+                              .padding()
+                              .foregroundStyle(.white)
+                              .background(
+                                    RoundedRectangle(cornerRadius: 16)
+                                    .fill(Color.gray)
+                              )
+                        }
+                        Spacer()
                     }
-                    Spacer()
-                  }
-                  .padding(.horizontal)
-                  .id("draftIndicator")
+                .padding(.horizontal)
+                .id("draftIndicator")
                 }
             }
-            .padding(.horizontal)
+//            .padding(.horizontal)
         }
     }
 
