@@ -13,6 +13,64 @@ _A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
 
 ---
 
+## Project Proposal
+
+### Overview
+
+"AmongThem" is an engaging chat-based application allowing users to interact with multiple specialized AI personas. It features seamless and interactive chat threads powered by Ollama 3.2, providing real-time, streaming responses for an enhanced conversational experience.
+
+### Target Audience
+
+* Age: 18-65
+* All genders
+* All education levels
+* Interests: Technology, Fitness, Health, Cooking, Gaming
+
+---
+
+## Must-Have Features
+
+* **Multiple Threads Management**
+
+  * Create, rename, and delete conversations with different AI personas and Overall Project structure of files.
+  * Estimated time: 12 hours (Owner: Matt Stoffel)
+
+* **AI Chat via Ollama 3.2**
+
+  * Implement real-time token-by-token streaming responses.
+  * Estimated time: 5 hours (Owner: Aditya Sharma and Matt Stoffel)
+
+* **Typing Indicator**
+
+  * Visual feedback while waiting for AI responses.
+  * Estimated time: 2 hours (Owner: Aditya Sharma)
+
+* **Auto-Scroll Functionality**
+
+  * Auto-scroll to latest messages or ongoing typing indicators.
+  * Estimated time: 3 hours (Owner: Aditya Sharma)
+
+* **CoreData Persistence**
+
+  * Persist user threads and messages locally, accessible offline.
+  * Estimated time: 8 hours (Owner: Steven Brandt)
+
+* **User-Friendly UI & Character Personas**
+
+  * Intuitive and responsive UI designed using SwiftUI.
+  * Estimated time: 8 hours (Owner: Nathan Gabriel David)
+
+---
+
+## Nice-to-Have Features
+
+* **Concise Mode**
+
+  * Option to enable shorter, more concise AI responses.
+  * Estimated time: 3 hours
+
+---
+
 ## 🚀 Features
 
 - **Multiple Threads**  
