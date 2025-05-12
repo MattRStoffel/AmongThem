@@ -70,6 +70,11 @@ _A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
   * Estimated time: 3 hours
 
 ---
+## 🛠 Wireframe Storyboard
+
+![Wireframe Storyboard](https://i.imgur.com/abPgspe.png)
+
+---
 
 ## 🚀 Features
 
