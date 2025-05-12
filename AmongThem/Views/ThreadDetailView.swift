@@ -18,9 +18,24 @@ struct ThreadDetailView: View {
             Image("Space")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
+    
+            VStack(spacing: 0) {
+                ZStack {
+                    Color.clear
+                        .frame(height: 50)
 
-            VStack {
-                messagesSection
+                    Text(thread.otherUser?.name ?? "AI")
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(.white)
+                        .shadow(radius: 1)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, -65) // adjust closer to status bar if needed
+                .zIndex(1) // make sure it floats above background
+                
+                
+                messagesSection.padding(.bottom, 5)
 
                 UserInput { text in
                     viewModel.addMessage(text, to: thread)
