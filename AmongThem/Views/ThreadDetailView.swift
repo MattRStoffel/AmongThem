@@ -22,7 +22,7 @@ struct ThreadDetailView: View {
             VStack(spacing: 0) {
                 ZStack {
                     Color.clear
-                        .frame(height: 50)
+                        .frame(height: 20)
 
                     Text(thread.otherUser?.name ?? "AI")
                         .font(.title2)
@@ -31,7 +31,7 @@ struct ThreadDetailView: View {
                         .shadow(radius: 1)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.top, -65) // adjust closer to status bar if needed
+                .padding(.top, -40) // adjust closer to status bar if needed
                 .zIndex(1) // make sure it floats above background
                 
                 
