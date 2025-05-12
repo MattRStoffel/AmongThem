@@ -1,6 +1,6 @@
 # AmongThem
 
-_A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
+_A SwiftUI chat “game” with AI personas, powered by llama 3.2._
 
 ---
 
@@ -35,7 +35,7 @@ _A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
   * Create, rename, and delete conversations with different AI personas and Overall Project structure of files.
   * Estimated time: 12 hours (Owner: Matt Stoffel)
 
-* **AI Chat via Ollama 3.2**
+* **AI Chat via Ollama**
 
   * Implement real-time token-by-token streaming responses.
   * Estimated time: 5 hours (Owner: Aditya Sharma and Matt Stoffel)
@@ -80,8 +80,8 @@ _A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
 
 - **Multiple Threads**  
   Create, rename, and delete separate conversations (“threads”) with different AI personas.  
-- **AI Chat via Ollama 3.2**  
-  Streaming responses from local Ollama 3.2 models for ultra‑fast, privacy‑preserving chat.  
+- **AI Chat via Ollama**
+  If costs were no problem we would host this in the cloud for users rather than needing to run this only on the iPhone simulator.
 - **Typing Indicator**  
   “…is typing” bubble shows before each AI reply to keep the user informed mitigate exiting for the response delay.  
 - **Auto‑Scroll**  
@@ -97,8 +97,9 @@ _A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
 
 - **Xcode 16.2**  
 - **iOS 17.0+**  
-- **Swift 5.9**  
-- **Ollama 3.2** installed and in your PATH  
+- **Swift 5.9**
+- **Ollama**
+- **llama 3.2** installed and in your PATH  
 - **CoreData** (no external database needed)
 
 ---
@@ -109,7 +110,7 @@ _A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
    ```bash
    git clone https://github.com/YourOrg/AmongThem.git
    cd AmongThem
-2. **Ensure Ollama 3.2 is installed and running**
+2. **Ensure Ollama is installed and running llama 3.2**
 
    ```bash
    ollama version  # should report 3.2.x
@@ -124,7 +125,7 @@ _A SwiftUI chat “game” with AI personas, powered by Ollama 3.2._
 
 - **MVVM + Swift Concurrency**  
   - `ViewModel.swift` manages UI state, typing indicator, and AI calls (`@MainActor` async).  
-  - `EnemyHandler.swift` interfaces with Ollama 3.2 for streaming responses.  
+  - `EnemyHandler.swift` interfaces with  3.2 for streaming responses.  
   - `MessageHandler.swift`, `ThreadHandler.swift`, `UserHandler.swift` encapsulate CoreData CRUD.  
 
 - **SwiftUI Views**  
