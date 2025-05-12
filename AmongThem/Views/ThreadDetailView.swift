@@ -11,6 +11,7 @@ import SwiftUI
 
 struct ThreadDetailView: View {
     @ObservedObject var viewModel: ViewModel
+    @State private var scrollToLastMessage = false
     var thread: Thread
 
     var body: some View {
@@ -43,6 +44,16 @@ struct ThreadDetailView: View {
             }
             .onAppear {
                 viewModel.loadMessages(for: thread)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    withAnimation {
+                        scrollToLastMessage = true
+                    }
+                }
+                
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithTransparentBackground()
+                UINavigationBar.appearance().standardAppearance = appearance
+                UINavigationBar.appearance().scrollEdgeAppearance = appearance
             }
             .padding()
         }
@@ -75,6 +86,12 @@ extension ThreadDetailView {
                 // ★ scroll on each new token
                 .onChange(of: viewModel.draftText) { _ in
                     scrollToDraft(proxy)
+                }
+                .onChange(of: scrollToLastMessage) { shouldScroll in
+                    if shouldScroll {
+                        scrollToLast(proxy)
+                        scrollToLastMessage = false
+                    }
                 }
         }
     }
